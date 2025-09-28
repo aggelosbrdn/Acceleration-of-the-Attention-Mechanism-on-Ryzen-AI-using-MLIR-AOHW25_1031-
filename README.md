@@ -112,3 +112,4 @@ To replicate our results or run this project, you will need the following enviro
     * **AMD Vitis Unified Software Platform 2023.2**: Provides the core `aie-compiler` and drivers for the NPU.
     * **Xilinx Runtime (XRT) 2.16**: The C++ library used by the host application to control the NPU hardware.
     * **CMake**: For building the C++ host application.
+
