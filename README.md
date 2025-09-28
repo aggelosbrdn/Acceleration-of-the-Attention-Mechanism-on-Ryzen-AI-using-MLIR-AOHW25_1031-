@@ -113,3 +113,49 @@ To replicate our results or run this project, you will need the following enviro
     * **Xilinx Runtime (XRT) 2.16**: The C++ library used by the host application to control the NPU hardware.
     * **CMake**: For building the C++ host application.
 
+### Repository Structure
+
+The repository is organized by component, with each component in the `src` directory containing a standalone, runnable example.
+```
+/
+├── report/                 # Contains the final project report and graphs
+│
+├── src/                    # Contains all project source code
+│   ├── encoder/
+│   │   ├── qkv_projection/
+│   │   ├── sdpa/
+│   │   ├── ffn/
+│   │   └── full_encoder_pipeline/
+│   │
+│   └── decoder/
+│       ├── masked_sdpa/
+│       ├── cross_attention/
+│       └── full_decoder_pipeline/
+│
+└── README.md
+```
+*Each component sub-folder (e.g., `qkv_projection`) contains a `common.h`, `CMakeLists.txt`, a Python compiler script, a `test.cpp` host application, and a `Makefile`.*
+
+### How to Build & Run
+
+Each component in the `/src/` directory is a standalone, runnable example. The provided `Makefile` in each component's directory handles the entire build and execution process.
+
+#### Step 1: Navigate to a Component Directory
+
+First, navigate into the directory of the component you wish to run.
+
+```bash
+# Example: Navigate to the full encoder pipeline
+cd src/encoder/full_encoder_pipeline
+```
+
+#### Step 2: Clean, Build, and Run
+
+Use the following single-line command. This will clean any previous builds, compile both the NPU binary and the host application, and then run the test.
+
+```bash
+make clean && make run
+```
+
+#### Configuring Workloads
+To change parameters or switch between different workloads (e.g., to match the different results in the report), you will need to edit the Makefile directly within the component's folder. The configurable options are specified at the top of the file.
