@@ -8,12 +8,7 @@
 
 ### Abstract
 
-This project provides a comprehensive performance analysis and acceleration of the Transformer attention mechanism on the AMD Ryzen AI Neural Processing Unit (NPU).
-The primary objective was to evaluate the NPU's viability as a low-power, high-performance alternative to a CPU for on-device inference. Initial analysis revealed
-that the available development toolchain precluded a pure NPU solution, leading to the key innovation of this work: a *hybrid CPU+NPU model*. In this model, the NPU
-functions as a dedicated matrix multiplication accelerator controlled by C++ host logic. The results are definitive: the hybrid system achieved a peak end-to-end
-speedup of over **129x** and an energy-to-solution improvement of up to **128x** compared to the CPU baseline, validating the NPU's role in the modern on-device AI
-landscape.
+This project provides a comprehensive performance analysis and acceleration of the Transformer attention mechanism on the AMD Ryzen AI Neural Processing Unit (NPU). The primary objective was to evaluate the NPU's viability as a low-power, high-performance alternative to a CPU for on-device inference. Initial analysis revealed that the available development toolchain precluded a pure NPU solution, leading to the key innovation of this work: a *hybrid CPU+NPU model*. In this model, the NPU functions as a dedicated matrix multiplication accelerator controlled by C++ host logic. The results are definitive: the hybrid system achieved a peak end-to-end speedup of over **129x** and an energy-to-solution improvement of up to **128x** compared to the CPU baseline, validating the NPU's role in the modern on-device AI landscape.
 
 ### Project Video
 
@@ -40,7 +35,6 @@ For the BERT-level workload, the NPU was up to **128x** more energy-efficient th
 
 ![Energy Graph](report/Total%20Energy%20Consumption%20to%20Solution%20NPU%20vs%20CPU.jpg)
 *Figure 2: Total energy consumed by the NPU vs. the CPU.*
- up to **128x** more energy-efficient than the CPU. The total energy consumed (in Joules) was dramatically lower, confirming that the hybrid model is an exceptionally efficient solution for the entire Transformer architecture.
 
 ---
 
@@ -71,10 +65,6 @@ This entire model was implemented using a two-path development workflow, as illu
 ![NPU Development Workflow](report/npu_workflow.jpg)
 
 *Figure 4: The NPU development workflow, highlighting the roles of the Python/MLIR hardware generation path and the C++/CMake software compilation path.*
-
-### Results and Analysis
-
-The performance gains of the hybrid model are substantial, reaching over **129x** the speed of the CPU baseline for the full encoder pipeline. This impressive scaling is a direct result of the workload becoming **compute-bound**; as the sequence length increases, the number of mathematical operations grows much faster than the amount of data that needs to be transferred, allowing the NPU's computational advantage to dominate the fixed cost of data transfer.
 
 ### Results and Analysis
 
@@ -126,7 +116,7 @@ To replicate our results or run this project, you will need the following enviro
 The repository is organized by component, with each component in the `src` directory containing a standalone, runnable example.
 ```
 /
-├── report/                 # Contains the final project report and graphs
+├── report/                 # Contains the graphs
 │
 ├── src/                    # Contains all project source code
 │   ├── encoder/
