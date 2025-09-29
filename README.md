@@ -54,7 +54,7 @@ In this model, the NPU is leveraged as a highly specialized and efficient co-pro
 
 ### Methodology
 
-Our methodology is centered on the **hybrid CPU+NPU model**, a pragmatic approach designed to maximize the strengths of each processor. The core strategy involves offloading only the most computationally intensive, matrix-multiplication-heavy components of the Transformer to the NPU, while the CPU retains control of all other "glue logic". This avoids the significant overhead associated with transferring data for smaller, less suitable workloads.
+Our methodology is centered on the **hybrid CPU+NPU model**, a pragmatic approach designed to maximize the strengths of each processor. The core strategy involves offloading only the most computationally intensive, matrix-multiplication-heavy components of the Transformer to the NPU, while the general-purpose CPU retains control of all other "glue logic". This avoids the significant overhead associated with transferring data for smaller, less suitable workloads.
 
 Two components clearly illustrate this design philosophy:
 
@@ -62,7 +62,11 @@ Two components clearly illustrate this design philosophy:
 
 * **Hybrid SDPA Block**: For the complex Scaled Dot-Product Attention block, the two large matrix multiplications were offloaded to the NPU, while the intermediate scaling and softmax operations remained on the CPU. This retained the flexibility of the CPU for non-matrix logic while leveraging the NPU for the heavy lifting.
 
-This entire model was implemented using a two-path development workflow. A **Hardware Compilation Path** used Python and MLIR to generate a binary for the NPU, while a **Software Compilation Path** used C++ and CMake to build the host application that orchestrates the entire process.
+This entire model was implemented using a two-path development workflow, as illustrated below.
+
+![NPU Development Workflow](report/npu_workflow.jpg)
+
+*Figure 3: The NPU development workflow, highlighting the roles of the Python/MLIR hardware generation path and the C++/CMake software compilation path.*
 
 ### Results and Analysis
 
