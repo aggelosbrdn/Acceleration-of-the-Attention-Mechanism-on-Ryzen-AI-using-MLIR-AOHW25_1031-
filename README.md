@@ -159,3 +159,7 @@ make clean && make run
 
 #### Configuring Workloads
 To change parameters or switch between different workloads (e.g., to match the different results in the report), you will need to edit the Makefile directly within the component's folder. The configurable options are specified at the top of the file.
+
+### License
+
+This project is licensed under the MIT License.
