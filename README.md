@@ -54,19 +54,23 @@ In this model, the NPU is leveraged as a highly specialized and efficient co-pro
 
 ### Methodology
 
-Our methodology is centered on the **hybrid CPU+NPU model**, a pragmatic approach designed to maximize the strengths of each processor. The core strategy involves offloading only the most computationally intensive, matrix-multiplication-heavy components of the Transformer to the NPU, while the general-purpose CPU retains control of all other "glue logic". This avoids the significant overhead associated with transferring data for smaller, less suitable workloads.
+Our methodology is centered on the **hybrid CPU+NPU model**. The decision to pursue this strategy was based on an initial performance analysis of a pure CPU implementation, which identified the primary computational bottlenecks. As the graph below shows, the matrix-multiplication-heavy SDPA and FFN layers were the most time-consuming components, accounting for a combined 83% of the total execution time.
 
-Two components clearly illustrate this design philosophy:
+![CPU Baseline Breakdown](report/cpu_baseline.jpg)
 
-* **Parallel QKV Projections**: The initial Query, Key, and Value projections are three mathematically independent matrix multiplications. To maximize hardware utilization and hide the overhead of launching compute kernels, we executed these three operations in parallel on the NPU, with each launched from a separate C++ `std::thread` on the host.
+*Figure 3: Breakdown of execution time for a Transformer encoder on the CPU (BERT-base config), justifying the focus on accelerating specific bottlenecks.*
 
-* **Hybrid SDPA Block**: For the complex Scaled Dot-Product Attention block, the two large matrix multiplications were offloaded to the NPU, while the intermediate scaling and softmax operations remained on the CPU. This retained the flexibility of the CPU for non-matrix logic while leveraging the NPU for the heavy lifting.
+This data provided a clear justification for our strategy: focus hardware acceleration exclusively on these bottlenecks. The core principle involves offloading only these computationally intensive components to the NPU, while the general-purpose CPU retains control of all other "glue logic". Two components clearly illustrate this design philosophy:
 
-This entire model was implemented using a two-path development workflow, as illustrated below.
+* **Parallel QKV Projections**: The initial Query, Key, and Value projections are three mathematically independent matrix multiplications. To maximize hardware utilization, we executed these three operations in parallel on the NPU, with each launched from a separate C++ `std::thread` on the host.
+
+* **Hybrid SDPA Block**: For the complex Scaled Dot-Product Attention block, the two large matrix multiplications were offloaded to the NPU, while the intermediate scaling and softmax operations remained on the CPU.
+
+This entire model was implemented using a two-path development workflow, as illustrated in the flowchart in the report.
 
 ![NPU Development Workflow](report/npu_workflow.jpg)
 
-*Figure 3: The NPU development workflow, highlighting the roles of the Python/MLIR hardware generation path and the C++/CMake software compilation path.*
+*Figure 4: The NPU development workflow, highlighting the roles of the Python/MLIR hardware generation path and the C++/CMake software compilation path.*
 
 ### Results and Analysis
 
