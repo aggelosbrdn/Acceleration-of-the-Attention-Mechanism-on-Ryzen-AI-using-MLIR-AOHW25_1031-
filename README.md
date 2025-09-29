@@ -12,7 +12,7 @@ This project provides a comprehensive performance analysis and acceleration of t
 The primary objective was to evaluate the NPU's viability as a low-power, high-performance alternative to a CPU for on-device inference. Initial analysis revealed
 that the available development toolchain precluded a pure NPU solution, leading to the key innovation of this work: a *hybrid CPU+NPU model*. In this model, the NPU
 functions as a dedicated matrix multiplication accelerator controlled by C++ host logic. The results are definitive: the hybrid system achieved a peak end-to-end
-speedup of over **129x** and an energy-to-solution improvement of up to **1000x** compared to the CPU baseline, validating the NPU's role in the modern on-device AI
+speedup of over **129x** and an energy-to-solution improvement of up to **128x** compared to the CPU baseline, validating the NPU's role in the modern on-device AI
 landscape.
 
 ### Project Video
@@ -34,13 +34,13 @@ The final end-to-end results for the full encoder pipeline demonstrate a peak pe
 ![Speedup Graph](report/Full%20Encoder%20Speedup%20Factor%20(K_Model=768).jpg)
 *Figure 1: Speedup factor of the hybrid NPU encoder pipeline compared to the CPU baseline.*
 
-#### 1000x Energy-to-Solution Savings
+#### 128x Energy-to-Solution Savings
 
-For the BERT-level workload, the NPU was up to **1000x** more energy-efficient than the CPU. The total energy consumed (in Joules) was dramatically lower, confirming that the hybrid model is an exceptionally efficient solution for the entire Transformer architecture.
+For the BERT-level workload, the NPU was up to **128x** more energy-efficient than the CPU. The total energy consumed (in Joules) was dramatically lower, confirming that the hybrid model is an exceptionally efficient solution for the entire Transformer architecture.
 
 ![Energy Graph](report/Total%20Energy%20Consumption%20to%20Solution%20NPU%20vs%20CPU.jpg)
 *Figure 2: Total energy consumed by the NPU vs. the CPU.*
- up to **1000x** more energy-efficient than the CPU. The total energy consumed (in Joules) was dramatically lower, confirming that the hybrid model is an exceptionally efficient solution for the entire Transformer architecture.
+ up to **128x** more energy-efficient than the CPU. The total energy consumed (in Joules) was dramatically lower, confirming that the hybrid model is an exceptionally efficient solution for the entire Transformer architecture.
 
 ---
 
@@ -85,11 +85,11 @@ A detailed breakdown of key components reveals where these gains originate:
 
 The most critical result of this investigation is the analysis of energy efficiency. A fascinating insight from power measurements was that the NPU pipeline's instantaneous power draw (in Watts) was often **higher** than the CPU's, due to the high level of concurrent activity on the SoC.
 
-However, because the NPU completed the task so much faster, the **total energy consumed** (in Joules) was dramatically lower. For the BERT-level workload, the NPU was up to **1000x more energy-efficient** than the CPU, a monumental advantage for any battery-powered or thermally constrained device.
+However, because the NPU completed the task so much faster, the **total energy consumed** (in Joules) was dramatically lower. For the BERT-level workload, the NPU was up to **128x more energy-efficient** than the CPU, a monumental advantage for any battery-powered or thermally constrained device.
 
 ### Conclusion
 
-This project successfully demonstrated that a **hybrid CPU+NPU model** is a viable and highly effective strategy for accelerating Transformer workloads on modern, consumer-grade AI hardware. By achieving a speedup of over **129x** and an energy efficiency improvement of up to **1000x** compared to a standard CPU, the results show that for on-device applications where power, thermals, and physical constraints are the primary concerns, the AMD Ryzen AI NPU is a definitive champion.
+This project successfully demonstrated that a **hybrid CPU+NPU model** is a viable and highly effective strategy for accelerating Transformer workloads on modern, consumer-grade AI hardware. By achieving a speedup of over **129x** and an energy efficiency improvement of up to **128x** compared to a standard CPU, the results show that for on-device applications where power, thermals, and physical constraints are the primary concerns, the AMD Ryzen AI NPU is a definitive champion.
 
 The principal contribution of this work is a first-of-its-kind, in-depth performance and energy analysis of the Transformer architecture on this new class of hardware. It provides crucial, empirical data that validates the NPU's role in making powerful AI models practical for everyday devices.
 
