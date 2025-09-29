@@ -14,7 +14,7 @@ This project provides a comprehensive performance analysis and acceleration of t
 
 A complete 2-minute summary of our project is available on YouTube.
 
-**[Link to final YouTube video here]**
+**https://www.youtube.com/watch?v=X8qfi6n4aGg**
 
 ---
 
