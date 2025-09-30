@@ -24,10 +24,10 @@ TILE_N := 32
 KERNEL_DEFINES := -D$(DTYPE_IN)_$(DTYPE_OUT)_ONLY -DDIM_M=$(TILE_M) -DDIM_K=$(TILE_K) -DDIM_N=$(TILE_N)
 
 # --- Build Targets ---
-# The default 'all' target builds the host program and the single hardware file.
+# Default "all" target builds the host program and the single hardware file.
 all: matmulpara.exe build/final.xclbin
 
-# --- Hardware Generation Rules (Only ONE set of rules is needed) ---
+# --- Hardware Generation Rules (Only ONE set is needed) ---
 build/aie.mlir: matmul.py
 	mkdir -p $(@D)
 	python3 $< -M $(M) -K $(K) -N $(N) --dtype_in $(DTYPE_IN) --dtype_out $(DTYPE_OUT) \
@@ -58,3 +58,4 @@ run: matmulpara.exe build/final.xclbin
 # --- Cleanup Rule ---
 clean:
 	rm -rf build _build matmulpara.exe
+
