@@ -21,7 +21,7 @@ TILE_M := 32
 TILE_K := 32
 TILE_N := 32
 
-# FIX: Add critical compiler definitions for the AIE kernel
+# FIX: Add compiler definitions for the AIE kernel
 KERNEL_DEFINES := -D$(DTYPE_IN)_$(DTYPE_OUT)_ONLY -DDIM_M=$(TILE_M) -DDIM_K=$(TILE_K) -DDIM_N=$(TILE_N)
 
 # --- Build Targets ---
@@ -78,4 +78,5 @@ run: ffn.exe build/matmul1/final.xclbin build/matmul2/final.xclbin
 # --- Cleanup Rule ---
 clean:
 	rm -rf build _build ffn.exe
+
 
