@@ -1,9 +1,3 @@
-# This file is licensed under the Apache License v2.0 with LLVM Exceptions.
-# See https://llvm.org/LICENSE.txt for license information.
-# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-#
-# (c) Copyright 2023 Advanced Micro Devices, Inc.
-
 # cmake needs this line
 cmake_minimum_required(VERSION 3.1)
 
@@ -22,7 +16,6 @@ else()
     set(XRT_LIB_DIR C:/Technical/xrtNPUfromDLL CACHE STRING "Path to xrt_coreutil.lib")
 endif()
 
-# --- MODIFICATION ---
 # Set the target name for our sequential matmul project
 set(TARGET_NAME matmul3 CACHE STRING "Target to be built")
 
@@ -44,7 +37,6 @@ add_executable(${currentTarget}
     test.cpp
 )
 
-# --- MODIFICATION ---
 # Update the compiler definitions to pass the new dimensions from the Makefile
 target_compile_definitions(${currentTarget} PUBLIC 
     DISABLE_ABI_CHECK=1
@@ -67,3 +59,4 @@ target_link_directories(${currentTarget} PUBLIC
 target_link_libraries(${currentTarget} PUBLIC
     xrt_coreutil
 )
+
