@@ -35,7 +35,7 @@ void initialize_vector(std::vector<T>& vec) {
     }
 }
 
-// ### MODIFICATION: Helper function to get power consumption ###
+// Helper function to get power consumption
 float get_power_in_watts() {
     std::string command = "sensors | grep PPT";
     char buffer[128];
@@ -171,13 +171,13 @@ int main(int argc, const char *argv[]) {
 
     // --- NPU PIPELINE TIMING ---
     float npu_time_total = 0;
-    // ### MODIFICATION: Add variable for NPU energy measurement ###
+    // Add variable for NPU energy measurement
     float npu_power_total = 0;
     unsigned num_iter = n_iterations + n_warmup_iterations;
     std::vector<OUT_DATATYPE> Final_NPU_Out(M * K_MODEL);
 
     for (unsigned iter = 0; iter < num_iter; ++iter) {
-        // ### MODIFICATION: Get start power ###
+        // Get start power
         float power_start = get_power_in_watts();
         auto start = std::chrono::high_resolution_clock::now();
 
@@ -337,12 +337,12 @@ int main(int argc, const char *argv[]) {
         cpu_layer_norm(Final_NPU_Out, M, K_MODEL);
         
         auto stop = std::chrono::high_resolution_clock::now();
-        // ### MODIFICATION: Get stop power ###
+        // Get stop power
         float power_stop = get_power_in_watts();
 
         if (iter >= n_warmup_iterations) {
             npu_time_total += std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
-            // ### MODIFICATION: Accumulate power reading ###
+            // Accumulate power reading
             npu_power_total += (power_start + power_stop) / 2.0;
         }
     }
@@ -350,12 +350,12 @@ int main(int argc, const char *argv[]) {
     // --- PURE CPU TIMING BLOCK ---
     std::cout << "\n--- Running CPU reference for timing comparison ---" << std::endl;
     float cpu_time_total = 0;
-    // ### MODIFICATION: Add variable for CPU energy measurement ###
+    // Add variable for CPU energy measurement
     float cpu_power_total = 0;
     std::vector<OUT_DATATYPE> Final_CPU_Out(M * K_MODEL);
 
     for (unsigned iter = 0; iter < num_iter; ++iter) {
-        // ### MODIFICATION: Get start power ###
+        // Get start power
         float power_start = get_power_in_watts();
         auto cpu_start = std::chrono::high_resolution_clock::now();
         // === STEP 1: Create Q, K, and V (Sequential CPU) ===
@@ -449,12 +449,12 @@ int main(int argc, const char *argv[]) {
         for(int i=0; i<M*K_MODEL; ++i) { Final_CPU_Out[i] = FFN_Out_cpu[i] + AddNorm1_Out_cpu[i]; }
         cpu_layer_norm(Final_CPU_Out, M, K_MODEL);
         auto cpu_stop = std::chrono::high_resolution_clock::now();
-        // ### MODIFICATION: Get stop power ###
+        // Get stop power
         float power_stop = get_power_in_watts();
 
         if (iter >= n_warmup_iterations) {
             cpu_time_total += std::chrono::duration_cast<std::chrono::microseconds>(cpu_stop - cpu_start).count();
-            // ### MODIFICATION: Accumulate power reading ###
+            // Accumulate power reading
             cpu_power_total += (power_start + power_stop) / 2.0;
         }
     }
@@ -463,7 +463,6 @@ int main(int argc, const char *argv[]) {
     std::cout << "\n--- Final Performance ---" << std::endl;
     std::cout << "Avg NPU Pipeline time: " << (npu_time_total / n_iterations) / 1000.0 << "ms." << std::endl;
     std::cout << "Avg CPU Pipeline time: " << (cpu_time_total / n_iterations) / 1000.0 << "ms." << std::endl;
-    // ### MODIFICATION: Add new print statements for power ###
     std::cout << "Avg NPU Pipeline Power: " << (npu_power_total / n_iterations) << " W." << std::endl;
     std::cout << "Avg CPU Pipeline Power: " << (cpu_power_total / n_iterations) << " W." << std::endl;
 
@@ -490,3 +489,4 @@ int main(int argc, const char *argv[]) {
         return 1;
     }
 }
+
