@@ -16,7 +16,6 @@ else()
     set(XRT_LIB_DIR C:/Technical/xrtNPUfromDLL CACHE STRING "Path to xrt_coreutil.lib")
 endif()
 
-# --- MODIFICATION ---
 # Set the target name for our encoder project
 set(TARGET_NAME encoder CACHE STRING "Target to be built")
 
@@ -32,14 +31,13 @@ endif ()
 
 project(${ProjectName})
 
-# Add the source files for our 'encoder' target
+# Add the source files for "encoder" target
 add_executable(${currentTarget}
     ${CMAKE_CURRENT_SOURCE_DIR}/../runtime_lib/test_lib/test_utils.cpp
     test.cpp
 )
 
-# --- MODIFICATION ---
-# Update the compiler definitions to pass the new dimensions from the Makefile
+# Update compiler definitions to pass the new dimensions from the Makefile
 target_compile_definitions(${currentTarget} PUBLIC 
     DISABLE_ABI_CHECK=1
     M_DIM=${M_DIM}
@@ -59,3 +57,4 @@ target_link_directories(${currentTarget} PUBLIC
 target_link_libraries(${currentTarget} PUBLIC
     xrt_coreutil
 )
+
