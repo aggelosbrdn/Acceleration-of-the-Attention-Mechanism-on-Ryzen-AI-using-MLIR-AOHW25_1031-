@@ -17,7 +17,7 @@ else()
 endif()
 
 # --- MODIFICATION ---
-# Set the target name for our SDPA project
+# Set the target name for SDPA project
 set(TARGET_NAME sdpa CACHE STRING "Target to be built")
 
 SET (ProjectName ${TARGET_NAME})
@@ -39,7 +39,7 @@ add_executable(${currentTarget}
 )
 
 # --- MODIFICATION ---
-# Update the compiler definitions to pass the SDPA dimensions from the Makefile
+# Update compiler definitions to pass SDPA dimensions from the Makefile
 target_compile_definitions(${currentTarget} PUBLIC 
     DISABLE_ABI_CHECK=1
     M_DIM=${M_DIM}
@@ -59,3 +59,4 @@ target_link_directories(${currentTarget} PUBLIC
 target_link_libraries(${currentTarget} PUBLIC
     xrt_coreutil
 )
+
