@@ -5,12 +5,12 @@ srcdir := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 include ${srcdir}/../programming_examples/makefile-common
 
 # --- Encoder Configuration ---
-# Define the dimensions for a standard encoder layer.
+# Define dimensions for a standard encoder layer.
 M := 128
 K_MODEL := 128
 K_HEAD := $(K_MODEL)
 
-# ### FINAL FIX: Use shell to perform the calculation for FFN_HIDDEN ###
+# FIX: Use shell to perform the calculation for FFN_HIDDEN
 FFN_HIDDEN := $(shell echo $$(($(K_MODEL) * 4)))
 
 # Define the data types used for the NPU kernels
@@ -127,3 +127,4 @@ run: encoder.exe all
 # --- Cleanup Rule ---
 clean:
 	rm -rf build _build encoder.exe
+
