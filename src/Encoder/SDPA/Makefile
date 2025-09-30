@@ -18,12 +18,12 @@ DTYPE_OUT := i32
 TILE_M := 32
 TILE_K := 16
 
-# Define compiler flags for each AIE kernel, as they have different tile shapes.
+# Define compiler flags for each AIE kernel, cause they have different tile shapes.
 # Note: The kernel source (mm.cc) uses DIM_N for the output tile dimension.
 KERNEL_DEFINES_1 := -D$(DTYPE_IN)_$(DTYPE_OUT)_ONLY -DDIM_M=$(TILE_M) -DDIM_K=$(TILE_K) -DDIM_N=$(TILE_M)
 KERNEL_DEFINES_2 := -D$(DTYPE_IN)_$(DTYPE_OUT)_ONLY -DDIM_M=$(TILE_M) -DDIM_K=$(TILE_M) -DDIM_N=$(TILE_K)
 
-# Explicitly define the kernel object filenames to avoid parsing errors
+# Define the kernel object filenames to avoid parsing errors
 KERNEL_OBJ_1 := mm_$(TILE_M)x$(TILE_K)x$(TILE_M).o
 KERNEL_OBJ_2 := mm_$(TILE_M)x$(TILE_M)x$(TILE_K).o
 
@@ -84,9 +84,10 @@ run-masked: sdpa.exe build/matmul1/final.xclbin build/matmul2/final.xclbin
 
 test: run run-masked
 
-# --- FINAL FIX: Declare non-file targets as "phony" to prevent errors ---
+# --- Declare non-file targets as .phony to prevent errors ---
 .PHONY: all run run-masked test clean
 
 # --- Cleanup Rule ---
 clean:
 	rm -rf build _build sdpa.exe
+
