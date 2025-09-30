@@ -25,7 +25,7 @@ TILE_K := 16
 KERNEL_DEFINES_1 := -D$(DTYPE_IN)_$(DTYPE_OUT)_ONLY -DDIM_M=$(TILE_M) -DDIM_K=$(TILE_K) -DDIM_N=$(TILE_M)
 KERNEL_DEFINES_2 := -D$(DTYPE_IN)_$(DTYPE_OUT)_ONLY -DDIM_M=$(TILE_M) -DDIM_K=$(TILE_M) -DDIM_N=$(TILE_K)
 
-# Explicitly define the kernel object filenames
+# Define the kernel object filenames
 KERNEL_OBJ_1 := mm_$(TILE_M)x$(TILE_K)x$(TILE_M).o
 KERNEL_OBJ_2 := mm_$(TILE_M)x$(TILE_M)x$(TILE_K).o
 
@@ -85,3 +85,4 @@ run: crossattention.exe build/matmul1/final.xclbin build/matmul2/final.xclbin
 .PHONY: all run clean
 clean:
 	rm -rf build _build crossattention.exe
+
