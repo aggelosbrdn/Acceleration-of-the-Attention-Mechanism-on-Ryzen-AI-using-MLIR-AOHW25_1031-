@@ -48,7 +48,7 @@ void cpu_matmul(const std::vector<IN_DATATYPE>& A, const std::vector<IN_DATATYPE
     }
 }
 
-// ### NEW: Helper function to get power consumption ###
+// Helper function to get power consumption
 float get_power_in_watts() {
     std::string command = "sensors | grep PPT";
     char buffer[128];
@@ -150,7 +150,7 @@ int main(int argc, const char *argv[]) {
     auto bo_c3 = xrt::bo(device, C3_NPU.size() * sizeof(OUT_DATATYPE), XRT_BO_FLAGS_HOST_ONLY, kernel.group_id(5));
 
     float npu_time_total = 0;
-    // ### MODIFICATION: Add variable for NPU energy measurement ###
+    // Add variable for NPU energy measurement
     float npu_power_total = 0;
     unsigned num_iter = n_iterations + n_warmup_iterations;
 
@@ -178,7 +178,7 @@ int main(int argc, const char *argv[]) {
     // --- SEQUENTIAL CPU TIMING BLOCK ---
     std::cout << "\n--- Running CPU reference for timing comparison ---" << std::endl;
     float cpu_time_total = 0;
-    // ### MODIFICATION: Add variable for CPU energy measurement ###
+    // Add variable for CPU energy measurement
     float cpu_power_total = 0;
     std::vector<OUT_DATATYPE> C1_CPU(M * N), C2_CPU(M * N), C3_CPU(M * N);
 
@@ -226,3 +226,4 @@ int main(int argc, const char *argv[]) {
         return 1;
     }
 }
+
