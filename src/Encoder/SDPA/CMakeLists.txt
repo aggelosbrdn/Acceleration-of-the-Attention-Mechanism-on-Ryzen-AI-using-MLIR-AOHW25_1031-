@@ -16,7 +16,6 @@ else()
     set(XRT_LIB_DIR C:/Technical/xrtNPUfromDLL CACHE STRING "Path to xrt_coreutil.lib")
 endif()
 
-# --- MODIFICATION ---
 # Set the target name for our SDPA project
 set(TARGET_NAME sdpa CACHE STRING "Target to be built")
 
@@ -38,7 +37,6 @@ add_executable(${currentTarget}
     test.cpp
 )
 
-# --- MODIFICATION ---
 # Update the compiler definitions to pass the SDPA dimensions from the Makefile
 target_compile_definitions(${currentTarget} PUBLIC 
     DISABLE_ABI_CHECK=1
@@ -59,3 +57,4 @@ target_link_directories(${currentTarget} PUBLIC
 target_link_libraries(${currentTarget} PUBLIC
     xrt_coreutil
 )
+
