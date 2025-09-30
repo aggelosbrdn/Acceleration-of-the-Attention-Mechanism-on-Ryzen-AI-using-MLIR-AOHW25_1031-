@@ -5,7 +5,7 @@ srcdir := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 include ${srcdir}/../programming_examples/makefile-common
 
 # --- Sequential MatMul Configuration ---
-# Define the dimensions for three sequential matrix multiplications:
+# Define dimensions for three sequential matrix multiplications:
 # Step 1: M x K1
 # Step 2: M x N1 (output of step 1)
 # Step 3: M x N2 (output of step 2)
@@ -95,3 +95,4 @@ run: matmul3.exe build/matmul1/final.xclbin build/matmul2/final.xclbin build/mat
 # --- Cleanup Rule ---
 clean:
 	rm -rf build _build matmul3.exe
+
