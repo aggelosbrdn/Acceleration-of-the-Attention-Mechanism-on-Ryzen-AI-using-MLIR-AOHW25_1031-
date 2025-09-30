@@ -14,7 +14,7 @@
 #include "xrt/xrt_device.h"
 #include "xrt/xrt_kernel.h"
 
-#include "common.h" // Includes matmul_common::verify
+#include "common.h"
 
 // --- Data Type Definitions ---
 #define DTYPE_IN int16_t
@@ -229,3 +229,4 @@ int main(int argc, const char *argv[]) {
         return 1;
     }
 }
+
