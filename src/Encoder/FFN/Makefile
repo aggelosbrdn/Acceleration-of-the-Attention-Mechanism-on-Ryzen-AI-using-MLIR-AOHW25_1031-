@@ -21,7 +21,7 @@ TILE_M := 32
 TILE_K := 32
 TILE_N := 32
 
-# ### FINAL FIX: Add the critical compiler definitions for the AIE kernel ###
+# FIX: Add critical compiler definitions for the AIE kernel
 KERNEL_DEFINES := -D$(DTYPE_IN)_$(DTYPE_OUT)_ONLY -DDIM_M=$(TILE_M) -DDIM_K=$(TILE_K) -DDIM_N=$(TILE_N)
 
 # --- Build Targets ---
@@ -35,7 +35,7 @@ build/matmul1/aie.mlir: matmul.py
 
 build/matmul1/mm_$(TILE_M)x$(TILE_K)x$(TILE_N).o: ../aie_kernels/aie2/mm.cc
 	mkdir -p $(@D)
-	# ### FINAL FIX: Pass the KERNEL_DEFINES to the AIE kernel compiler ###
+	# FIX: Pass the KERNEL_DEFINES to the AIE kernel compiler
 	cd $(@D) && $(PEANO_INSTALL_DIR)/bin/clang++ $(PEANOWRAP2_FLAGS) $(KERNEL_DEFINES) -c ../../../aie_kernels/aie2/mm.cc -o $(@F)
 
 build/matmul1/final.xclbin: build/matmul1/aie.mlir build/matmul1/mm_$(TILE_M)x$(TILE_K)x$(TILE_N).o
@@ -52,7 +52,7 @@ build/matmul2/aie.mlir: matmul.py
 
 build/matmul2/mm_$(TILE_M)x$(TILE_K)x$(TILE_N).o: ../aie_kernels/aie2/mm.cc
 	mkdir -p $(@D)
-	# ### FINAL FIX: Pass the KERNEL_DEFINES to the AIE kernel compiler ###
+	# FIX: Pass the KERNEL_DEFINES to the AIE kernel compiler
 	cd $(@D) && $(PEANO_INSTALL_DIR)/bin/clang++ $(PEANOWRAP2_FLAGS) $(KERNEL_DEFINES) -c ../../../aie_kernels/aie2/mm.cc -o $(@F)
 
 build/matmul2/final.xclbin: build/matmul2/aie.mlir build/matmul2/mm_$(TILE_M)x$(TILE_K)x$(TILE_N).o
@@ -78,3 +78,4 @@ run: ffn.exe build/matmul1/final.xclbin build/matmul2/final.xclbin
 # --- Cleanup Rule ---
 clean:
 	rm -rf build _build ffn.exe
+
