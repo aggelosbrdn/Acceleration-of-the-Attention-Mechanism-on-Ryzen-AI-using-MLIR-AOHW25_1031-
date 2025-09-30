@@ -35,7 +35,7 @@ void initialize_vector(std::vector<T>& vec) {
     }
 }
 
-// FINAL FIX: New helper function to manually transpose a matrix
+// FIX: New helper function to manually transpose a matrix
 template <typename T>
 void transpose_matrix(const std::vector<T>& input, std::vector<T>& output, int rows, int cols) {
     output.resize(cols * rows);
@@ -85,7 +85,7 @@ int main(int argc, const char *argv[]) {
     initialize_vector(K_Vec);
     initialize_vector(V_Vec);
 
-    // FINAL FIX: Create a new vector for the transposed K matrix
+    // FIX: Create a new vector for the transposed K matrix
     std::vector<IN_DATATYPE> K_T_Vec;
     transpose_matrix(K_Vec, K_T_Vec, M, K);
 
@@ -129,7 +129,7 @@ int main(int argc, const char *argv[]) {
         auto start = std::chrono::high_resolution_clock::now();
         // --- MatMul1 (Q @ K_T) on NPU ---
         bo_q.write(Q_Vec.data());
-        // FINAL FIX: Write the transposed K data to the buffer
+        // FIX: Write the transposed K data to the buffer
         bo_k.write(K_T_Vec.data());
         bo_q.sync(XCL_BO_SYNC_BO_TO_DEVICE);
         bo_k.sync(XCL_BO_SYNC_BO_TO_DEVICE);
@@ -247,3 +247,4 @@ int main(int argc, const char *argv[]) {
         return 1;
     }
 }
+
