@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22031365.svg)](https://doi.org/10.5281/zenodo.22031365)
 # Acceleration of the Attention Mechanism on Ryzen AI using MLIR
 
 **Submission for the Open Hardware Competition 2025** **Track:** Accelerated Computing: Unleash the potential of AMD ROCm supported Ryzen AI, and Radeon/Instinct GPUs  
